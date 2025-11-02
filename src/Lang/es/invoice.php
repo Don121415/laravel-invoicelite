@@ -27,4 +27,9 @@ return [
     'invoice_total' => 'Total factura',
     'thank_you' => '¡Gracias por su negocio!',
     'footer_note' => 'Esta es una factura generada automáticamente. No se requiere firma.',
+    'website' => 'Sitio Web',
+    'phone' => 'Teléfono',
+    'address' => 'Dirección',
+    'signature' => 'Firma',
+    'invoice_qr' => 'Código QR de factura',
 ];

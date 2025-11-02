@@ -53,6 +53,11 @@ class InvoiceLiteServiceProvider extends ServiceProvider
             __DIR__.'/../Config/invoicelite.php', 'invoicelite'
         );
 
+        // Register QR Code service provider if it exists
+        if (class_exists('\SimpleSoftwareIO\QrCode\QrCodeServiceProvider')) {
+            $this->app->register(\SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class);
+        }
+
         // Bind contracts to implementations
         $this->app->bind(InvoiceGeneratorInterface::class, InvoiceManager::class);
         

@@ -27,4 +27,9 @@ return [
     'invoice_total' => 'Total de la facture',
     'thank_you' => 'Merci pour votre entreprise !',
     'footer_note' => 'Ceci est une facture auto-générée. Aucune signature requise.',
+    'website' => 'Site Web',
+    'phone' => 'Téléphone',
+    'address' => 'Adresse',
+    'signature' => 'Signature',
+    'invoice_qr' => 'Code QR de la facture',
 ];

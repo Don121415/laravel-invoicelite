@@ -27,4 +27,9 @@ return [
     'invoice_total' => 'Invoice Total',
     'thank_you' => 'Thank you for your business!',
     'footer_note' => 'This is an auto-generated invoice. No signature required.',
+    'website' => 'Website',
+    'phone' => 'Phone',
+    'address' => 'Address',
+    'signature' => 'Signature',
+    'invoice_qr' => 'Invoice QR Code',
 ];
