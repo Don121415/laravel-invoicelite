@@ -13,7 +13,7 @@ class TemplateManager
     public function render(string $template, array $data, string $language = 'en'): string
     {
         // Set the application locale
-        App::setLocale($language);
+        app()->setLocale($language);
         
         // Ensure required data is present
         $data = array_merge([
@@ -64,6 +64,9 @@ class TemplateManager
             $data['qr_code'] = ''; // QR code package not available
         }
         
+        // Generate items table HTML for both View system and fallback
+        $data['itemsHtml'] = $this->generateItemsHtml($data['items'] ?? []);
+        
         // Try to render using Laravel's view system
         try {
             // Check if custom template exists
@@ -79,6 +82,30 @@ class TemplateManager
             // Fallback to file-based rendering if View system fails
             return $this->renderFromFile($template, $data);
         }
+    }
+    
+    /**
+     * Generate HTML for items table
+     */
+    protected function generateItemsHtml(array $items): string
+    {
+        $itemsHtml = '';
+        if (isset($items) && is_array($items)) {
+            foreach ($items as $item) {
+                $itemName = $item['name'] ?? '';
+                $itemQty = $item['qty'] ?? 0;
+                $itemPrice = $item['price'] ?? 0;
+                $itemTotal = (($item['price'] ?? 0) * ($item['qty'] ?? 1));
+                
+                $itemsHtml .= "<tr>";
+                $itemsHtml .= "<td>{$itemName}</td>";
+                $itemsHtml .= "<td>{$itemQty}</td>";
+                $itemsHtml .= "<td>" . number_format($itemPrice, 2) . "</td>";
+                $itemsHtml .= "<td>" . number_format($itemTotal, 2) . "</td>";
+                $itemsHtml .= "</tr>";
+            }
+        }
+        return $itemsHtml;
     }
     
     /**
@@ -122,24 +149,7 @@ class TemplateManager
         $content = str_replace('{{ $tax }}', $data['tax'] ?? 0, $content);
         
         // Add items table
-        $itemsHtml = '';
-        if (isset($data['items']) && is_array($data['items'])) {
-            foreach ($data['items'] as $item) {
-                $itemName = $item['name'] ?? '';
-                $itemQty = $item['qty'] ?? 0;
-                $itemPrice = $item['price'] ?? 0;
-                $itemTotal = (($item['price'] ?? 0) * ($item['qty'] ?? 1));
-                
-                $itemsHtml .= "<tr>";
-                $itemsHtml .= "<td>{$itemName}</td>";
-                $itemsHtml .= "<td>{$itemQty}</td>";
-                $itemsHtml .= "<td>" . number_format($itemPrice, 2) . "</td>";
-                $itemsHtml .= "<td>" . number_format($itemTotal, 2) . "</td>";
-                $itemsHtml .= "</tr>";
-            }
-        }
-        
-        $content = str_replace('@itemsTable', $itemsHtml, $content);
+        $content = str_replace('@itemsTable', $data['itemsHtml'] ?? '', $content);
         
         // Replace totals with proper formatting
         $content = str_replace('{{ $subtotal }}', number_format($data['subtotal'] ?? 0, 2), $content);

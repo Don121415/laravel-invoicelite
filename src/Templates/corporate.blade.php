@@ -301,7 +301,7 @@
                 </tr>
             </thead>
             <tbody>
-                @itemsTable
+                {!! $itemsHtml !!}
             </tbody>
         </table>
         
