@@ -189,6 +189,7 @@ We now offer 5 professional templates:
 ![Minimal Template](https://raw.githubusercontent.com/subhashladumor1/laravel-invoicelite/main/docs/images/minimal-template.png)
 *Simple, minimalist design*
 
+
 ---
 
 ## 📱 QR Code Generation
