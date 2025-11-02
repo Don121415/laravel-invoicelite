@@ -12,14 +12,14 @@
 
 **Laravel InvoiceLite** is a modern, advanced, multi-language 🌍, multi-country 🌎 invoice generator for Laravel applications. It allows developers to quickly generate, customize, export, share, and email invoices with support for multiple countries, languages, and templates.
 
-This package is built for Laravel 10+ and provides a clean, developer-friendly API to generate professional invoices with minimal setup.
+This package is built for Laravel 10+ and provides a clean, developer-friendly API to generate professional invoices with minimal setup. With support for 30+ languages and multiple currencies, it's perfect for international businesses.
 
 ---
 
 ## ⚡ Features
 
 - 🧮 **Dynamic Invoice Generation** - From arrays, models, or JSON data
-- 🌍 **Multi-language Support** - English, French, German, Hindi and more
+- 🌍 **Multi-language Support** - 30+ popular languages out of the box
 - 🌐 **Multi-country Tax Systems** - GST, VAT, Sales Tax, etc.
 - 🧱 **Pre-built Templates** - Modern, Classic, Minimal designs
 - 💾 **Multiple Export Formats** - PDF, Image (PNG/JPEG), HTML
@@ -29,6 +29,9 @@ This package is built for Laravel 10+ and provides a clean, developer-friendly A
 - 💡 **Developer-Friendly** - Single function helper for quick generation
 - ⚙️ **Performance Optimized** - Caching and optimization built-in
 - 🧑‍💻 **Well Documented** - Comprehensive examples and documentation
+- 📧 **Email Integration** - Send invoices directly via email
+- 💱 **Automatic Currency Conversion** - Real-time currency conversion
+- 🚀 **Fully Customizable** - Extensible and configurable
 
 ---
 
@@ -64,110 +67,319 @@ php artisan vendor:publish --tag=invoicelite-templates
 
 ---
 
-## 🧾 Usage Example
+## 🧾 Basic Usage Example
 
 ```php
 use SubhashLadumor1\InvoiceLite\Facades\InvoiceLite;
 
 $data = [
     'invoice_no' => 'INV-2025-001',
-    'customer' => ['name' => 'John Doe', 'email' => 'john@example.com'],
+    'date' => '2025-01-15',
+    'due_date' => '2025-02-15',
+    'customer' => [
+        'name' => 'John Doe',
+        'email' => 'john@example.com',
+        'address' => '123 Main St, New York, NY 10001',
+        'phone' => '+1 234 567 8900'
+    ],
     'items' => [
         ['name' => 'Web Development', 'price' => 1200, 'qty' => 1],
-        ['name' => 'Hosting', 'price' => 100, 'qty' => 12],
+        ['name' => 'Hosting (12 months)', 'price' => 100, 'qty' => 12],
     ],
     'tax' => 18,
-    'currency' => 'INR',
-    'language' => 'en'
+    'currency' => 'USD',
+    'language' => 'en',
+    'notes' => 'Thank you for your business. Payment is due within 30 days.',
+    'terms' => 'Please make checks payable to Your Company Name. Late payments are subject to a 1.5% monthly finance charge.'
 ];
 
 InvoiceLite::make($data)
     ->template('modern')
-    ->currency('INR')
+    ->currency('USD')
     ->export('pdf')
     ->save(storage_path('invoices/invoice.pdf'));
 ```
 
 ---
 
-## 🌐 Multi-language Example
+## 🌐 Multi-language Support (30+ Languages)
+
+Laravel InvoiceLite supports 30+ popular languages out of the box:
+
+| Language | Code | Language | Code |
+|----------|------|----------|------|
+| English | `en` | Spanish | `es` |
+| French | `fr` | Portuguese | `pt` |
+| German | `de` | Russian | `ru` |
+| Hindi | `hi` | Japanese | `ja` |
+| Chinese | `zh` | Korean | `ko` |
+| Arabic | `ar` | Italian | `it` |
+| Dutch | `nl` | Turkish | `tr` |
+| Polish | `pl` | Swedish | `sv` |
+| Danish | `da` | Norwegian | `no` |
+| Finnish | `fi` | Czech | `cs` |
+| Hungarian | `hu` | Romanian | `ro` |
+| Bulgarian | `bg` | Greek | `el` |
+| Thai | `th` | Vietnamese | `vi` |
+| Indonesian | `id` | Malay | `ms` |
+| Hebrew | `he` | Ukrainian | `uk` |
+| Slovak | `sk` | Croatian | `hr` |
+| Lithuanian | `lt` | Latvian | `lv` |
+
+### Multi-language Example
 
 ```php
+// Generate invoice in Spanish
 InvoiceLite::make($data)
-    ->language('fr') // French
+    ->language('es')
     ->template('modern')
     ->export('pdf')
-    ->save(storage_path('invoices/invoice-fr.pdf'));
-```
+    ->save(storage_path('invoices/invoice-es.pdf'));
 
-Supported languages:
-- English (`en`)
-- French (`fr`)
-- German (`de`)
-- Hindi (`hi`)
+// Generate invoice in Japanese
+InvoiceLite::make($data)
+    ->language('ja')
+    ->template('modern')
+    ->export('pdf')
+    ->save(storage_path('invoices/invoice-ja.pdf'));
+
+// Generate invoice in Arabic (RTL support)
+InvoiceLite::make($data)
+    ->language('ar')
+    ->template('modern')
+    ->export('pdf')
+    ->save(storage_path('invoices/invoice-ar.pdf'));
+```
 
 ---
 
-## 🌎 Multi-country Tax Example
+## 🌎 Multi-country Tax Support
+
+Support for country-specific tax systems:
 
 ```php
 $taxCalculator = new \SubhashLadumor1\InvoiceLite\Services\TaxCalculator();
 
-// Get tax rules for India
-$indiaTax = $taxCalculator->getCountryTaxRules('IN'); // ['name' => 'GST', 'rate' => 18.0]
+// Get tax rules for different countries
+$indiaTax = $taxCalculator->getCountryTaxRules('IN');    // India - GST (18%)
+$ukTax = $taxCalculator->getCountryTaxRules('GB');       // UK - VAT (20%)
+$germanyTax = $taxCalculator->getCountryTaxRules('DE');  // Germany - VAT (19%)
+$usaTax = $taxCalculator->getCountryTaxRules('US');      // USA - Sales Tax (7.5%)
+$canadaTax = $taxCalculator->getCountryTaxRules('CA');   // Canada - HST/GST (5%)
+$australiaTax = $taxCalculator->getCountryTaxRules('AU'); // Australia - GST (10%)
 
-// Get tax rules for United States
-$usTax = $taxCalculator->getCountryTaxRules('US'); // ['name' => 'Sales Tax', 'rate' => 7.5]
-
-// Use in invoice generation
+// Use country-specific tax in invoice generation
 InvoiceLite::make($data)
     ->template('modern')
     ->export('pdf')
-    ->save(storage_path('invoices/invoice-with-tax.pdf'));
+    ->save(storage_path('invoices/invoice-with-uk-tax.pdf'));
 ```
 
 ---
 
-## 🎨 Template Customization Guide
+## 💾 Multiple Export Formats
+
+### PDF Export (Default)
+```php
+InvoiceLite::make($data)
+    ->template('modern')
+    ->export('pdf')
+    ->save(storage_path('invoices/invoice.pdf'));
+```
+
+### HTML Export
+```php
+InvoiceLite::make($data)
+    ->template('modern')
+    ->export('html')
+    ->save(storage_path('invoices/invoice.html'));
+```
+
+### Image Export (PNG/JPEG)
+```php
+// PNG export
+InvoiceLite::make($data)
+    ->template('modern')
+    ->export('png')
+    ->save(storage_path('invoices/invoice.png'));
+
+// JPEG export
+InvoiceLite::make($data)
+    ->template('modern')
+    ->export('jpeg')
+    ->save(storage_path('invoices/invoice.jpeg'));
+```
+
+---
+
+## 📤 Shareable Invoice Links
+
+Generate secure, time-limited shareable links for invoices:
+
+```php
+// Generate a link that expires in 7 days
+$link = InvoiceLite::generateShareLink('INV-2025-001', now()->addDays(7));
+
+// Generate a link that expires in 30 days (default)
+$link = InvoiceLite::generateShareLink('INV-2025-001');
+
+// Generate a link that expires in 24 hours
+$link = InvoiceLite::generateShareLink('INV-2025-001', 24); // 24 hours
+
+// Generate a link that expires on a specific date
+$link = InvoiceLite::generateShareLink('INV-2025-001', now()->addMonths(3)); // 3 months
+```
+
+---
+
+## 🎨 Template Customization
 
 The package comes with three built-in templates:
+
 1. **Modern** - Clean, gradient design with modern aesthetics
 2. **Classic** - Traditional invoice layout with borders
 3. **Minimal** - Simple, minimalist design
 
-To customize templates:
+### Customizing Templates
+
 1. Publish the templates:
    ```bash
    php artisan vendor:publish --tag=invoicelite-templates
    ```
+
 2. Edit the templates in `resources/views/vendor/invoicelite/`
+
+3. Create your own custom templates by copying and modifying existing ones
+
+### Using Custom Templates
+
+```php
+// Use a custom template
+InvoiceLite::make($data)
+    ->template('custom-corporate')
+    ->export('pdf')
+    ->save(storage_path('invoices/custom-invoice.pdf'));
+```
 
 ---
 
-## 📤 Invoice Share Link Example
+## 💱 Currency Support
 
-Generate a shareable link for an invoice:
+Support for 20+ international currencies:
 
 ```php
-$link = InvoiceLite::generateShareLink('INV-2025-001', now()->addDays(7)); // Expires in 7 days
+// USD - US Dollar
+InvoiceLite::make($data)->currency('USD');
 
-// Or use default expiration (30 days)
-$link = InvoiceLite::generateShareLink('INV-2025-001');
+// EUR - Euro
+InvoiceLite::make($data)->currency('EUR');
+
+// GBP - British Pound
+InvoiceLite::make($data)->currency('GBP');
+
+// INR - Indian Rupee
+InvoiceLite::make($data)->currency('INR');
+
+// JPY - Japanese Yen
+InvoiceLite::make($data)->currency('JPY');
+
+// CAD - Canadian Dollar
+InvoiceLite::make($data)->currency('CAD');
+
+// AUD - Australian Dollar
+InvoiceLite::make($data)->currency('AUD');
+
+// CHF - Swiss Franc
+InvoiceLite::make($data)->currency('CHF');
+
+// CNY - Chinese Yuan
+InvoiceLite::make($data)->currency('CNY');
+
+// And 10+ more currencies...
+```
+
+---
+
+## 🧾 Advanced Usage Examples
+
+### Multiple Invoices Batch Generation
+
+```php
+$invoices = [
+    [
+        'invoice_no' => 'INV-2025-001',
+        'customer' => ['name' => 'John Doe', 'email' => 'john@example.com'],
+        'items' => [
+            ['name' => 'Web Development', 'price' => 1200, 'qty' => 1],
+            ['name' => 'Hosting', 'price' => 100, 'qty' => 12],
+        ],
+        'tax' => 18,
+        'currency' => 'USD',
+        'language' => 'en'
+    ],
+    [
+        'invoice_no' => 'INV-2025-002',
+        'customer' => ['name' => 'Jane Smith', 'email' => 'jane@example.com'],
+        'items' => [
+            ['name' => 'Consulting', 'price' => 800, 'qty' => 5],
+            ['name' => 'Training', 'price' => 200, 'qty' => 3],
+        ],
+        'tax' => 15,
+        'currency' => 'EUR',
+        'language' => 'fr'
+    ]
+];
+
+foreach ($invoices as $invoiceData) {
+    InvoiceLite::make($invoiceData)
+        ->template('modern')
+        ->export('pdf')
+        ->save(storage_path("invoices/{$invoiceData['invoice_no']}.pdf"));
+}
+```
+
+### Email Invoice Directly
+
+```php
+use Illuminate\Support\Facades\Mail;
+use SubhashLadumor1\InvoiceLite\Facades\InvoiceLite;
+
+// Generate invoice
+$invoicePath = storage_path('invoices/invoice.pdf');
+InvoiceLite::make($data)
+    ->template('modern')
+    ->export('pdf')
+    ->save($invoicePath);
+
+// Send via email
+Mail::send('emails.invoice', ['data' => $data], function ($message) use ($data, $invoicePath) {
+    $message->to($data['customer']['email'])
+            ->subject("Invoice {$data['invoice_no']}")
+            ->attach($invoicePath);
+});
 ```
 
 ---
 
 ## ⚙️ Configuration Options
 
-The configuration file allows you to customize:
+The configuration file allows extensive customization:
 
 ```php
 return [
     'default_template' => 'modern',
     'default_currency' => 'USD',
     'default_language' => 'en',
-    'supported_currencies' => ['USD', 'EUR', 'GBP', 'INR', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'SEK'],
-    'supported_languages' => ['en', 'fr', 'de', 'hi'],
+    'supported_currencies' => [
+        'USD', 'EUR', 'GBP', 'INR', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'SEK',
+        'NZD', 'MXN', 'SGD', 'HKD', 'NOK', 'KRW', 'TRY', 'RUB', 'BRL', 'ZAR'
+    ],
+    'supported_languages' => [
+        'en', 'fr', 'de', 'hi', 'es', 'pt', 'ru', 'ja', 'zh', 'ko', 
+        'ar', 'it', 'nl', 'tr', 'pl', 'sv', 'da', 'no', 'fi', 'cs',
+        'hu', 'ro', 'bg', 'el', 'th', 'vi', 'id', 'ms', 'he', 'uk',
+        'sk', 'hr', 'lt', 'lv'
+    ],
     'supported_templates' => ['modern', 'classic', 'minimal'],
     'company' => [
         'name' => 'Your Company Name',
@@ -177,8 +389,49 @@ return [
         'website' => 'https://yourcompany.com',
         'logo' => '', // Path to your logo
     ],
-    // ... more options
+    'tax' => [
+        'default_rate' => 0.0,
+        'display_tax_breakdown' => true,
+    ],
+    'invoice_number' => [
+        'prefix' => 'INV-',
+        'length' => 8,
+        'reset_yearly' => true,
+    ],
+    'share_links' => [
+        'expire_days' => 30,
+        'route_prefix' => 'invoice',
+    ],
 ];
+```
+
+---
+
+## 🧩 Helper Functions
+
+The package provides several helpful global functions:
+
+```php
+// Generate an invoice using the helper
+invoice_lite()->make($data)->template('modern')->export('pdf')->save($path);
+
+// Format currency
+echo format_currency(1234.56, 'USD'); // $1,234.56
+echo format_currency(1234.56, 'EUR'); // €1.234,56
+echo format_currency(1234.56, 'JPY'); // ¥1,235
+
+// Calculate tax
+$taxAmount = calculate_tax(1000, 18); // 180.0
+```
+
+---
+
+## 🧪 Testing
+
+To run tests for the package:
+
+```bash
+composer test
 ```
 
 ---

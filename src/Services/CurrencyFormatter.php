@@ -18,6 +18,16 @@ class CurrencyFormatter
         'CHF' => ['CHF', 2, '.', '\''], // Swiss Franc
         'CNY' => ['¥' , 2, '.', ','],   // Chinese Yuan
         'SEK' => ['kr', 2, ',', ' '],   // Swedish Krona
+        'NZD' => ['NZ$', 2, '.', ','],  // New Zealand Dollar
+        'MXN' => ['MX$', 2, '.', ','],  // Mexican Peso
+        'SGD' => ['S$', 2, '.', ','],   // Singapore Dollar
+        'HKD' => ['HK$', 2, '.', ','],  // Hong Kong Dollar
+        'NOK' => ['kr', 2, ',', ' '],   // Norwegian Krone
+        'KRW' => ['₩' , 0, '.', ','],   // South Korean Won
+        'TRY' => ['₺' , 2, ',', '.'],   // Turkish Lira
+        'RUB' => ['₽' , 2, ',', ' '],   // Russian Ruble
+        'BRL' => ['R$', 2, ',', '.'],   // Brazilian Real
+        'ZAR' => ['R' , 2, '.', ' ']    // South African Rand
     ];
 
     /**
@@ -37,7 +47,7 @@ class CurrencyFormatter
         $formatted = number_format($amount, $decimals, $decimalPoint, $thousandsSeparator);
         
         // Position symbol based on currency (prefix or suffix)
-        if (in_array($currency, ['EUR', 'GBP', 'INR', 'JPY', 'CNY'])) {
+        if (in_array($currency, ['EUR', 'GBP', 'INR', 'JPY', 'CNY', 'KRW', 'ZAR'])) {
             return $symbol . $formatted;
         }
         

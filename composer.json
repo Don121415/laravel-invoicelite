@@ -3,6 +3,42 @@
     "description": "💼 Laravel InvoiceLite — Multi-language, multi-country, professional invoice generator with PDF/Image export, templates, taxes & sharing 🚀",
     "type": "library",
     "license": "MIT",
+    "version": "1.0.1",
+    "keywords": [
+        "laravel invoice",
+        "invoice generator",
+        "laravel invoice package",
+        "invoice pdf generator",
+        "laravel pdf invoice",
+        "laravel invoice builder",
+        "invoice management",
+        "multi language invoice",
+        "multi currency invoice",
+        "tax invoice system",
+        "gst invoice",
+        "vat invoice",
+        "invoice template laravel",
+        "professional invoice",
+        "laravel invoice pdf",
+        "laravel invoice generator free",
+        "business invoice system",
+        "invoice export pdf",
+        "laravel dompdf invoice",
+        "invoice sharing link",
+        "custom invoice design",
+        "printable invoice template",
+        "freelancer invoice generator",
+        "ecommerce invoice",
+        "invoice customization",
+        "responsive invoice template",
+        "generate invoice with tax",
+        "client billing laravel",
+        "digital invoice laravel",
+        "laravel invoice maker",
+        "easy invoice generator",
+        "modern invoice system",
+        "laravel-invoicelite"
+    ],
     "autoload": {
         "psr-4": {
             "SubhashLadumor1\\InvoiceLite\\": "src/"
@@ -22,9 +58,13 @@
         }
     },
     "require": {
-        "php": ">=8.1",
-        "illuminate/support": "^10.0|^11.0",
         "barryvdh/laravel-dompdf": "^2.0",
-        "intervention/image": "^3.0"
+        "intervention/image": "^3.0",
+        "php": "^8.1|^8.2|^8.3",
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/console": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/database": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/cache": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/http": "^9.0|^10.0|^11.0|^12.0"
     }
 }

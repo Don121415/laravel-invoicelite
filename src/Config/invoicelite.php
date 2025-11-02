@@ -43,7 +43,8 @@ return [
     |
     */
     'supported_currencies' => [
-        'USD', 'EUR', 'GBP', 'INR', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'SEK'
+        'USD', 'EUR', 'GBP', 'INR', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'SEK',
+        'NZD', 'MXN', 'SGD', 'HKD', 'NOK', 'KRW', 'TRY', 'RUB', 'BRL', 'ZAR'
     ],
 
     /*
@@ -52,10 +53,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you can define all the supported languages for your invoices.
+    | We support 30+ popular languages out of the box.
     |
     */
     'supported_languages' => [
-        'en', 'fr', 'de', 'hi'
+        'en', 'fr', 'de', 'hi', 'es', 'pt', 'ru', 'ja', 'zh', 'ko', 
+        'ar', 'it', 'nl', 'tr', 'pl', 'sv', 'da', 'no', 'fi', 'cs',
+        'hu', 'ro', 'bg', 'el', 'th', 'vi', 'id', 'ms', 'he', 'uk',
+        'sk', 'hr', 'lt', 'lv'
     ],
 
     /*
