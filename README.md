@@ -21,7 +21,7 @@ This package is built for Laravel 10+ and provides a clean, developer-friendly A
 - 🧮 **Dynamic Invoice Generation** - From arrays, models, or JSON data
 - 🌍 **Multi-language Support** - 30+ popular languages out of the box
 - 🌐 **Multi-country Tax Systems** - GST, VAT, Sales Tax, etc.
-- 🧱 **Pre-built Templates** - Modern, Classic, Minimal designs
+- 🧱 **Pre-built Templates** - Modern, Classic, Minimal, Business, Corporate designs
 - 💾 **Multiple Export Formats** - PDF, Image (PNG/JPEG), HTML
 - 📤 **Shareable Links** - Unique signed URLs for invoice sharing
 - 🎨 **Custom Branding** - Logo, color, header/footer customization
@@ -32,6 +32,9 @@ This package is built for Laravel 10+ and provides a clean, developer-friendly A
 - 📧 **Email Integration** - Send invoices directly via email
 - 💱 **Automatic Currency Conversion** - Real-time currency conversion
 - 🚀 **Fully Customizable** - Extensible and configurable
+- 📱 **QR Code Generation** - Automatic QR code for invoice verification
+- ✍️ **Digital Signatures** - Add digital signatures to invoices
+- 🖼️ **Professional Templates** - Based on modern design principles
 
 ---
 
@@ -90,11 +93,12 @@ $data = [
     'currency' => 'USD',
     'language' => 'en',
     'notes' => 'Thank you for your business. Payment is due within 30 days.',
-    'terms' => 'Please make checks payable to Your Company Name. Late payments are subject to a 1.5% monthly finance charge.'
+    'terms' => 'Please make checks payable to Your Company Name. Late payments are subject to a 1.5% monthly finance charge.',
+    'signature' => 'https://example.com/signature.png' // Optional digital signature
 ];
 
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('business') // Try our new professional business template!
     ->currency('USD')
     ->export('pdf')
     ->save(storage_path('invoices/invoice.pdf'));
@@ -132,14 +136,14 @@ Laravel InvoiceLite supports 30+ popular languages out of the box:
 // Generate invoice in Spanish
 InvoiceLite::make($data)
     ->language('es')
-    ->template('modern')
+    ->template('business')
     ->export('pdf')
     ->save(storage_path('invoices/invoice-es.pdf'));
 
 // Generate invoice in Japanese
 InvoiceLite::make($data)
     ->language('ja')
-    ->template('modern')
+    ->template('corporate')
     ->export('pdf')
     ->save(storage_path('invoices/invoice-ja.pdf'));
 
@@ -149,6 +153,64 @@ InvoiceLite::make($data)
     ->template('modern')
     ->export('pdf')
     ->save(storage_path('invoices/invoice-ar.pdf'));
+```
+
+---
+
+## 🎨 Professional Templates
+
+We now offer 5 professional templates:
+
+1. **Modern** - Clean, gradient design with modern aesthetics
+2. **Classic** - Traditional invoice layout with borders
+3. **Minimal** - Simple, minimalist design
+4. **Business** - Professional business template with QR code
+5. **Corporate** - Corporate-style template with branding options
+
+### Template Preview
+
+![Business Template](https://cdn.dribbble.com/userupload/22459797/file/original-ddcc7a7a689a009160d8d5d03385b428.png?resize=752x564&vertical=center)
+*Business Template*
+
+![Corporate Template](https://cdn.dribbble.com/userupload/16092429/file/original-6c252a9a0e3dc275213c1b2a8327fb90.png?resize=752x&vertical=center)
+*Corporate Template*
+
+![Modern Template](https://cdn.dribbble.com/userupload/10162802/file/original-ff594ddaf5218e3ca23f64cf64f36b87.png?resize=752x&vertical=center)
+*Modern Template*
+
+![Classic Template](https://cdn.dribbble.com/userupload/17147152/file/original-c92136048f132531a06c921b6be0801b.jpg?resize=752x&vertical=center)
+*Classic Template*
+
+---
+
+## 📱 QR Code Generation
+
+All invoices automatically include a QR code for easy verification:
+
+```php
+// QR code is automatically generated
+InvoiceLite::make($data)
+    ->template('business')
+    ->export('pdf')
+    ->save(storage_path('invoices/invoice-with-qr.pdf'));
+```
+
+---
+
+## ✍️ Digital Signatures
+
+Add digital signatures to your invoices:
+
+```php
+$data = [
+    // ... other data
+    'signature' => 'https://yourcompany.com/signature.png'
+];
+
+InvoiceLite::make($data)
+    ->template('business')
+    ->export('pdf')
+    ->save(storage_path('invoices/invoice-with-signature.pdf'));
 ```
 
 ---
@@ -170,7 +232,7 @@ $australiaTax = $taxCalculator->getCountryTaxRules('AU'); // Australia - GST (10
 
 // Use country-specific tax in invoice generation
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('corporate')
     ->export('pdf')
     ->save(storage_path('invoices/invoice-with-uk-tax.pdf'));
 ```
@@ -182,7 +244,7 @@ InvoiceLite::make($data)
 ### PDF Export (Default)
 ```php
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('business')
     ->export('pdf')
     ->save(storage_path('invoices/invoice.pdf'));
 ```
@@ -190,7 +252,7 @@ InvoiceLite::make($data)
 ### HTML Export
 ```php
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('business')
     ->export('html')
     ->save(storage_path('invoices/invoice.html'));
 ```
@@ -199,13 +261,13 @@ InvoiceLite::make($data)
 ```php
 // PNG export
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('business')
     ->export('png')
     ->save(storage_path('invoices/invoice.png'));
 
 // JPEG export
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('business')
     ->export('jpeg')
     ->save(storage_path('invoices/invoice.jpeg'));
 ```
@@ -228,37 +290,6 @@ $link = InvoiceLite::generateShareLink('INV-2025-001', 24); // 24 hours
 
 // Generate a link that expires on a specific date
 $link = InvoiceLite::generateShareLink('INV-2025-001', now()->addMonths(3)); // 3 months
-```
-
----
-
-## 🎨 Template Customization
-
-The package comes with three built-in templates:
-
-1. **Modern** - Clean, gradient design with modern aesthetics
-2. **Classic** - Traditional invoice layout with borders
-3. **Minimal** - Simple, minimalist design
-
-### Customizing Templates
-
-1. Publish the templates:
-   ```bash
-   php artisan vendor:publish --tag=invoicelite-templates
-   ```
-
-2. Edit the templates in `resources/views/vendor/invoicelite/`
-
-3. Create your own custom templates by copying and modifying existing ones
-
-### Using Custom Templates
-
-```php
-// Use a custom template
-InvoiceLite::make($data)
-    ->template('custom-corporate')
-    ->export('pdf')
-    ->save(storage_path('invoices/custom-invoice.pdf'));
 ```
 
 ---
@@ -332,7 +363,7 @@ $invoices = [
 
 foreach ($invoices as $invoiceData) {
     InvoiceLite::make($invoiceData)
-        ->template('modern')
+        ->template('business')
         ->export('pdf')
         ->save(storage_path("invoices/{$invoiceData['invoice_no']}.pdf"));
 }
@@ -347,7 +378,7 @@ use SubhashLadumor1\InvoiceLite\Facades\InvoiceLite;
 // Generate invoice
 $invoicePath = storage_path('invoices/invoice.pdf');
 InvoiceLite::make($data)
-    ->template('modern')
+    ->template('business')
     ->export('pdf')
     ->save($invoicePath);
 
@@ -367,7 +398,7 @@ The configuration file allows extensive customization:
 
 ```php
 return [
-    'default_template' => 'modern',
+    'default_template' => 'business',
     'default_currency' => 'USD',
     'default_language' => 'en',
     'supported_currencies' => [
@@ -380,7 +411,7 @@ return [
         'hu', 'ro', 'bg', 'el', 'th', 'vi', 'id', 'ms', 'he', 'uk',
         'sk', 'hr', 'lt', 'lv'
     ],
-    'supported_templates' => ['modern', 'classic', 'minimal'],
+    'supported_templates' => ['modern', 'classic', 'minimal', 'business', 'corporate'],
     'company' => [
         'name' => 'Your Company Name',
         'address' => '123 Main Street, City, Country',
@@ -402,6 +433,15 @@ return [
         'expire_days' => 30,
         'route_prefix' => 'invoice',
     ],
+    'qr_code' => [
+        'enabled' => true,
+        'size' => 100,
+        'format' => 'png',
+    ],
+    'signature' => [
+        'enabled' => false,
+        'path' => '', // Path to signature image
+    ],
 ];
 ```
 
@@ -413,7 +453,7 @@ The package provides several helpful global functions:
 
 ```php
 // Generate an invoice using the helper
-invoice_lite()->make($data)->template('modern')->export('pdf')->save($path);
+invoice_lite()->make($data)->template('business')->export('pdf')->save($path);
 
 // Format currency
 echo format_currency(1234.56, 'USD'); // $1,234.56
@@ -452,6 +492,7 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 - [barryvdh/laravel-dompdf](https://github.com/barryvdh/laravel-dompdf) - For PDF generation
 - [intervention/image](https://github.com/Intervention/image) - For image processing
+- [simplesoftwareio/simple-qrcode](https://github.com/SimpleSoftwareIO/simple-qrcode) - For QR code generation
 - All contributors who have helped shape this package
 
 ---

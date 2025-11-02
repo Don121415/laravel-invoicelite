@@ -72,7 +72,7 @@ return [
     |
     */
     'supported_templates' => [
-        'modern', 'classic', 'minimal'
+        'modern', 'classic', 'minimal', 'business', 'corporate'
     ],
 
     /*
@@ -130,5 +130,32 @@ return [
     'share_links' => [
         'expire_days' => 30,
         'route_prefix' => 'invoice',
+    ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | QR Code Settings
+    |--------------------------------------------------------------------------
+    |
+    | Configure QR code generation for invoices.
+    |
+    */
+    'qr_code' => [
+        'enabled' => true,
+        'size' => 100,
+        'format' => 'png',
+    ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Signature Settings
+    |--------------------------------------------------------------------------
+    |
+    | Configure digital signature settings for invoices.
+    |
+    */
+    'signature' => [
+        'enabled' => false,
+        'path' => '', // Path to signature image
     ],
 ];

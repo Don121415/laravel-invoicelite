@@ -109,6 +109,26 @@ class InvoiceManager implements InvoiceGeneratorInterface
             );
         }
 
+        // Ensure company data is set
+        if (!isset($this->data['company'])) {
+            $this->data['company'] = [
+                'name' => config('invoicelite.company.name', 'Your Company Name'),
+                'address' => config('invoicelite.company.address', '123 Main Street'),
+                'email' => config('invoicelite.company.email', 'info@company.com'),
+                'phone' => config('invoicelite.company.phone', '+1 234 567 8900'),
+                'website' => config('invoicelite.company.website', 'https://company.com'),
+                'logo' => config('invoicelite.company.logo', ''),
+            ];
+        }
+
+        // Add signature if enabled
+        if (config('invoicelite.signature.enabled', false) && !isset($this->data['signature'])) {
+            $this->data['signature'] = config('invoicelite.signature.path', '');
+        }
+
+        // Make sure all required data is present for templates
+        $this->data['tax'] = $this->data['tax'] ?? 0;
+
         // Render template
         $html = $this->templateManager->render($this->template, $this->data, $this->language);
 
@@ -149,7 +169,7 @@ class InvoiceManager implements InvoiceGeneratorInterface
      */
     public function getSupportedLanguages(): array
     {
-        return ['en', 'fr', 'de', 'hi'];
+        return config('invoicelite.supported_languages', ['en', 'fr', 'de', 'hi', 'es']);
     }
 
     /**

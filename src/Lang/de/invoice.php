@@ -27,4 +27,9 @@ return [
     'invoice_total' => 'Rechnungsbetrag',
     'thank_you' => 'Vielen Dank für Ihr Geschäft!',
     'footer_note' => 'Dies ist eine automatisch generierte Rechnung. Keine Unterschrift erforderlich.',
+    'website' => 'Webseite',
+    'phone' => 'Telefon',
+    'address' => 'Adresse',
+    'signature' => 'Unterschrift',
+    'invoice_qr' => 'Rechnungs-QR-Code',
 ];
