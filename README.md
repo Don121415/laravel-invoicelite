@@ -167,6 +167,29 @@ We now offer 5 professional templates:
 4. **Business** - Professional business template with QR code
 5. **Corporate** - Corporate-style template with branding options
 
+### Template Preview
+
+#### Business Template
+![Business Template](https://raw.githubusercontent.com/subhashladumor1/laravel-invoicelite/main/docs/images/business-template.png)
+*Professional business template with QR code and modern styling*
+
+#### Corporate Template
+![Corporate Template](https://raw.githubusercontent.com/subhashladumor1/laravel-invoicelite/main/docs/images/corporate-template.png)
+*Corporate-style template with branding options*
+
+#### Modern Template
+![Modern Template](https://raw.githubusercontent.com/subhashladumor1/laravel-invoicelite/main/docs/images/modern-template.png)
+*Clean, gradient design with modern aesthetics*
+
+#### Classic Template
+![Classic Template](https://raw.githubusercontent.com/subhashladumor1/laravel-invoicelite/main/docs/images/classic-template.png)
+*Traditional invoice layout with borders*
+
+#### Minimal Template
+![Minimal Template](https://raw.githubusercontent.com/subhashladumor1/laravel-invoicelite/main/docs/images/minimal-template.png)
+*Simple, minimalist design*
+
+
 ---
 
 ## 📱 QR Code Generation
